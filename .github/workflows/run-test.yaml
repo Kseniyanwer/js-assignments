@@ -17,3 +17,6 @@ jobs:
       
       - name: 'Run tests'
         run: npm run test 
+
+      - name: Publish Test Summary Results
+        run: npx github-actions-ctrf ctrf/ctrf-report.json
