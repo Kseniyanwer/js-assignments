@@ -7,8 +7,6 @@
  *                                                                                          *
  ********************************************************************************************/
 
-
-
 /**
  * Returns the result of concatenation of two strings.
  *
@@ -24,7 +22,6 @@
 function concatenateStrings(value1, value2) {
     return value1 + value2;
 }
-
 
 /**
  * Returns the length of given string.
@@ -72,8 +69,6 @@ function extractNameFromTemplate(value) {
     return value.slice(7, -1);
 }
 
-
-
 /**
  * Returns a first char of the given string.
  *
@@ -85,7 +80,7 @@ function extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 function getFirstChar(value) {
-    return value.charAt(0); 
+    return value.charAt(0);
 }
 
 /**
@@ -116,7 +111,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  */
 function repeatString(value, count) {
     let finalValue = '';
-    for (let i=1; i<=count; i++){
+    for (let i = 1; i <= count; i++) {
         finalValue += value;
     }
 
@@ -125,7 +120,7 @@ function repeatString(value, count) {
 
 /**
  * Remove the first occurrence of string inside another string
- * 
+ *
  * @param {string} str
  * @param {string} value
  * @return {string}
@@ -154,7 +149,6 @@ function unbracketTag(str) {
     return str.slice(1, -1);
 }
 
-
 /**
  * Converts all characters of the specified string into the upper case
  *
@@ -180,7 +174,7 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-        return str.split(';');
+    return str.split(';');
 }
 
 /**
@@ -210,10 +204,9 @@ function getRectangleString(width, height) {
     let topBottom = '┌' + '─'.repeat(width - 2) + '┐\n';
     let middle = '│' + ' '.repeat(width - 2) + '│\n';
     let bottom = '└' + '─'.repeat(width - 2) + '┘\n';
-    
+
     return topBottom + middle.repeat(height - 2) + bottom;
 }
-
 
 /**
  * Encode specified string with ROT13 cipher
@@ -234,7 +227,7 @@ function encodeToRot13(str) {
     return str.replace(/[a-zA-Z]/g, function (char) {
         let charCode = char.charCodeAt(0);
         let offset = charCode <= 90 ? 65 : 97; // 65 для 'A', 97 для 'a'
-        return String.fromCharCode((charCode - offset + 13) % 26 + offset);
+        return String.fromCharCode(((charCode - offset + 13) % 26) + offset);
     });
 }
 /**
@@ -254,26 +247,25 @@ function isString(value) {
     return typeof value === 'string' || value instanceof String;
 }
 
-
 /**
  * Returns playid card id.
- * 
+ *
  * Playing cards inittial deck inclides the cards in the following order:
- * 
+ *
  *  'A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
  *  'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
  *  'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
  *  'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'
- * 
+ *
  * (see https://en.wikipedia.org/wiki/Standard_52-card_deck)
  * Function returns the zero-based index of specified card in the initial deck above.
- * 
+ *
  * @param {string} value
  * @return {number}
  *
  * @example
  *   'A♣' => 0
- *   '2♣' => 1 
+ *   '2♣' => 1
  *   '3♣' => 2
  *     ...
  *   'Q♠' => 50
@@ -281,15 +273,62 @@ function isString(value) {
  */
 function getCardId(value) {
     const deck = [
-        'A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
-        'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
-        'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
-        'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'
+        'A♣',
+        '2♣',
+        '3♣',
+        '4♣',
+        '5♣',
+        '6♣',
+        '7♣',
+        '8♣',
+        '9♣',
+        '10♣',
+        'J♣',
+        'Q♣',
+        'K♣',
+        'A♦',
+        '2♦',
+        '3♦',
+        '4♦',
+        '5♦',
+        '6♦',
+        '7♦',
+        '8♦',
+        '9♦',
+        '10♦',
+        'J♦',
+        'Q♦',
+        'K♦',
+        'A♥',
+        '2♥',
+        '3♥',
+        '4♥',
+        '5♥',
+        '6♥',
+        '7♥',
+        '8♥',
+        '9♥',
+        '10♥',
+        'J♥',
+        'Q♥',
+        'K♥',
+        'A♠',
+        '2♠',
+        '3♠',
+        '4♠',
+        '5♠',
+        '6♠',
+        '7♠',
+        '8♠',
+        '9♠',
+        '10♠',
+        'J♠',
+        'Q♠',
+        'K♠',
     ];
 
     return deck.indexOf(value);
 }
-
 
 module.exports = {
     concatenateStrings: concatenateStrings,
@@ -306,5 +345,5 @@ module.exports = {
     getRectangleString: getRectangleString,
     encodeToRot13: encodeToRot13,
     isString: isString,
-    getCardId: getCardId
+    getCardId: getCardId,
 };

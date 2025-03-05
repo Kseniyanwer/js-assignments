@@ -4,16 +4,23 @@
   "description": "JS training tasks",
   "scripts": {
     "test": "npx mocha --reporter mocha-ctrf-json-reporter",
-    "test-debug": "npx mocha --debug-brk"
+    "test-debug": "npx mocha"
   },
   "author": "aorgish",
   "license": "MIT",
   "devDependencies": {
     "mocha": "^2.3.4",
-    "mocha-ctrf-json-reporter": "^0.0.7"
+    "mocha-ctrf-json-reporter": "^0.0.7",
+    "prettier": "3.5.3"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/rolling-scopes-school/js-assignments.git"
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 4,
+    "semi": true,
+    "singleQuote": true
   }
 }
