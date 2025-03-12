@@ -41,13 +41,7 @@ function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 function generateOdds(len) {
-    let arr = [];
-    for (let i = 0; arr.length < len; i++) {
-        if (i % 2 !== 0) {
-            arr.push(i);
-        }
-    }
-    return arr;
+    return Array.from({ length: len }, (_, i) => 2 * i + 1);
 }
 
 /**
@@ -77,13 +71,7 @@ function doubleArray(arr) {
  *    [] => []
  */
 function getArrayOfPositives(arr) {
-    let newArray = [];
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i] > 0) {
-            newArray.push(arr[i]);
-        }
-    }
-    return newArray;
+    return arr.filter((num) => num > 0);
 }
 
 /**
@@ -173,12 +161,7 @@ function insertItem(arr, item, index) {
  *    [ 'a', 'b', 'c', 'd'], 3  => [ 'a', 'b', 'c' ]
  */
 function getHead(arr, n) {
-    let newArray = [];
-    arr.length = n;
-    for (let i = 0; i < n; i++) {
-        newArray.push(arr[i]);
-    }
-    return newArray;
+    return arr.slice(0, n);
 }
 
 /**
@@ -282,13 +265,7 @@ function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 function propagateItemsByPositionIndex(arr) {
-    let result = [];
-    arr.forEach((item, index) => {
-        for (let i = 0; i <= index; i++) {
-            result.push(item);
-        }
-    });
-    return result;
+    return arr.flatMap((item, index) => Array(index + 1).fill(item));
 }
 
 /**
@@ -327,13 +304,7 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-    let count = 0;
-    for (let i = 0; i < arr.length; i++) {
-        if (typeof arr[i] === 'number' && arr[i] > 0) {
-            count++;
-        }
-    }
-    return count;
+    return arr.filter((item) => typeof item === 'number' && item > 0).length;
 }
 
 /**
@@ -551,19 +522,18 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-    const result = new Map();
-
-    array.forEach((item) => {
+    return array.reduce((map, item) => {
         const key = keySelector(item);
         const value = valueSelector(item);
 
-        if (!result.has(key)) {
-            result.set(key, []);
+        if (!map.has(key)) {
+            map.set(key, []);
         }
-        result.get(key).push(value);
-    });
 
-    return result;
+        map.get(key).push(value);
+
+        return map;
+    }, new Map());
 }
 
 /**
