@@ -324,7 +324,13 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-    throw new Error('Not implemented');
+    while (num > 9) {
+        num = num
+            .toString()
+            .split('')
+            .reduce((sum, digit) => sum + Number(digit), 0);
+    }
+    return num;
 }
 
 /**
@@ -349,7 +355,21 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true
  */
 function isBracketsBalanced(str) {
-    throw new Error('Not implemented');
+    const stack = [];
+    const bracketsMap = { ')': '(', ']': '[', '}': '{', '>': '<' };
+    const openBrackets = new Set(['(', '[', '{', '<']);
+
+    for (const char of str) {
+        if (openBrackets.has(char)) {
+            stack.push(char);
+        } else if (bracketsMap[char]) {
+            if (stack.pop() !== bracketsMap[char]) {
+                return false;
+            }
+        }
+    }
+
+    return stack.length === 0;
 }
 
 /**
@@ -407,7 +427,7 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-    throw new Error('Not implemented');
+    return num.toString(n);
 }
 
 /**
@@ -423,7 +443,23 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-    throw new Error('Not implemented');
+    if (paths.length === 0) return '';
+
+    const splitPaths = paths.map((path) => path.split('/'));
+
+    let commonPath = [];
+
+    for (let i = 0; i < splitPaths[0].length; i++) {
+        const dir = splitPaths[0][i];
+
+        if (splitPaths.every((path) => path[i] === dir)) {
+            commonPath.push(dir);
+        } else {
+            break;
+        }
+    }
+
+    return commonPath.length > 0 ? commonPath.join('/') + '/' : '';
 }
 
 /**
@@ -445,7 +481,32 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-    throw new Error('Not implemented');
+    const rowsA = m1.length;
+    const colsA = m1[0].length;
+    const rowsB = m2.length;
+    const colsB = m2[0].length;
+
+    if (colsA !== rowsB) {
+        throw new Error(
+            'Number of columns in the first matrix must equal number of rows in the second matrix'
+        );
+    }
+
+    // Initialize result matrix with zeros
+    let result = new Array(rowsA)
+        .fill(null)
+        .map(() => new Array(colsB).fill(0));
+
+    // Perform matrix multiplication
+    for (let i = 0; i < rowsA; i++) {
+        for (let j = 0; j < colsB; j++) {
+            for (let k = 0; k < colsA; k++) {
+                result[i][j] += m1[i][k] * m2[k][j];
+            }
+        }
+    }
+
+    return result;
 }
 
 /**
@@ -479,7 +540,66 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    throw new Error('Not implemented');
+    const lines = [
+        // Rows
+        [
+            [0, 0],
+            [0, 1],
+            [0, 2],
+        ],
+        [
+            [1, 0],
+            [1, 1],
+            [1, 2],
+        ],
+        [
+            [2, 0],
+            [2, 1],
+            [2, 2],
+        ],
+
+        // Columns
+        [
+            [0, 0],
+            [1, 0],
+            [2, 0],
+        ],
+        [
+            [0, 1],
+            [1, 1],
+            [2, 1],
+        ],
+        [
+            [0, 2],
+            [1, 2],
+            [2, 2],
+        ],
+
+        // Diagonals
+        [
+            [0, 0],
+            [1, 1],
+            [2, 2],
+        ],
+        [
+            [0, 2],
+            [1, 1],
+            [2, 0],
+        ],
+    ];
+
+    for (const line of lines) {
+        const [a, b, c] = line;
+        const valA = position[a[0]][a[1]];
+        const valB = position[b[0]][b[1]];
+        const valC = position[c[0]][c[1]];
+
+        if (valA && valA === valB && valA === valC) {
+            return valA;
+        }
+    }
+
+    return undefined;
 }
 
 module.exports = {
